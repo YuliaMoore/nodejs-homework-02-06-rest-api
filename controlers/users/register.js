@@ -1,3 +1,5 @@
+const gravatar = require("gravatar");
+
 const { User } = require("../../models");
 const { RequestError } = require("../../helpers");
 const bcrypt = require("bcryptjs");
@@ -8,6 +10,7 @@ const register = async (req, res) => {
   if (user) {
     throw new RequestError(409, `User with email: ${email} already exist`);
   }
+  const avatarURL = gravatar.url(email);
   const hashPassword = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
   await User.create({ email, password: hashPassword, subscription });
   res.status(201).json({
@@ -16,6 +19,7 @@ const register = async (req, res) => {
     data: {
       email,
       subscription,
+      avatarURL,
     },
   });
 };
