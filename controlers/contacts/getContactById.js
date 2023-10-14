@@ -14,5 +14,4 @@ const getContactById = async (req, res) => {
     data: { result },
   });
 };
-
 module.exports = getContactById;

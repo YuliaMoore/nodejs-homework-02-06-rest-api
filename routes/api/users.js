@@ -8,10 +8,9 @@ const {
   joiVerifyEmailSchema,
 } = require("../../utils/validation");
 
-const validationMiddleware = validation(joiUserSchema);
 const router = express.Router();
 
-router.post("/register", validationMiddleware, ctrlWrapper(ctrl.register));
+router.post("/register", validation(joiUserSchema), ctrlWrapper(ctrl.register));
 
 router.get("/verify/:verificationToken", ctrlWrapper(ctrl.verifyEmail));
 
@@ -21,7 +20,7 @@ router.post(
   ctrlWrapper(ctrl.resendVerifyEmail)
 );
 
-router.post("/login", validationMiddleware, ctrlWrapper(ctrl.login));
+router.post("/login", validation(joiUserSchema), ctrlWrapper(ctrl.login));
 
 router.get("/current", auth, ctrlWrapper(ctrl.getCurrentUser));
 

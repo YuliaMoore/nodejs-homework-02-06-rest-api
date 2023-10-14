@@ -2,7 +2,7 @@ const gravatar = require("gravatar");
 const { v4: uuidv4 } = require("uuid");
 
 const { User } = require("../../models");
-const { RequestError } = require("../../helpers");
+const { RequestError, sendEmail } = require("../../helpers");
 const bcrypt = require("bcryptjs");
 
 const register = async (req, res) => {
@@ -23,7 +23,7 @@ const register = async (req, res) => {
   });
   const mail = {
     to: email,
-    subject: "Confirmation of registration",
+    subject: "Сonfirmation of registration",
     html: `<a href='http://localhost:3000/api/users/verify/${verificationToken}' target="_blank">Click to confirm registration</a>`,
   };
   await sendEmail(mail);
